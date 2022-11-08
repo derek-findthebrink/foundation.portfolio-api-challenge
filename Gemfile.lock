@@ -105,6 +105,7 @@ GEM
     nio4r (2.5.8)
     nokogiri (1.13.9-x86_64-linux)
       racc (~> 1.4)
+    pg (1.2.3)
     pry (0.14.1)
       coderay (~> 1.1)
       method_source (~> 1.0)
@@ -163,7 +164,6 @@ GEM
       rspec-mocks (~> 3.11)
       rspec-support (~> 3.11)
     rspec-support (3.12.0)
-    sqlite3 (1.5.3-x86_64-linux)
     thor (1.2.1)
     timeout (0.3.0)
     tzinfo (2.0.5)
@@ -182,12 +182,12 @@ PLATFORMS
 DEPENDENCIES
   bootsnap
   debug
+  pg (~> 1.1)
   pry
   pry-doc
   puma (~> 5.0)
   rails (~> 7.0.4)
   rspec-rails
-  sqlite3 (~> 1.4)
   tzinfo-data
 
 RUBY VERSION

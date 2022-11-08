@@ -1,0 +1,27 @@
+version: "3.8"
+
+services:
+  postgres:
+    image: postgres:13
+    expose:
+      - "5432"
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: "${PORTFOLIO_DATABASE_USER}"
+      POSTGRES_DB: "${PORTFOLIO_DATABASE_NAME}"
+      POSTGRES_PASSWORD: "${PORTFOLIO_DATABASE_PASSWORD}"
+    networks:
+      - portfolio
+    volumes:
+      - "db_data:/var/lib/postgresql/data"
+
+networks:
+  portfolio:
+    ipam:
+      driver: default
+      config:
+        - subnet: "173.78.0.0/16"
+
+volumes:
+  db_data:

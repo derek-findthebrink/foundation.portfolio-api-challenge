@@ -22,3 +22,9 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+
+# Post-Production
+
+## Possible Optimizations
+- [ ] Remove any unnecessary rails modules from controllers
+- [ ] Disable action mailbox
