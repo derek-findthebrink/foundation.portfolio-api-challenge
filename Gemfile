@@ -12,7 +12,7 @@ gem 'pg', '~> 1.1'
 gem 'puma', '~> 5.0'
 
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
-# gem "jbuilder"
+gem 'jbuilder', '~> 2.10'
 
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 4.0"
@@ -41,6 +41,7 @@ group :development, :test do
   # TODO: add versions
   gem 'pry'
   gem 'pry-doc'
+  gem 'pry-rails', '~> 0.3.9'
   gem 'rspec-rails'
 end
 

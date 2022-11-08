@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  get 'portfolio', to: 'portfolio#index'
 
-  # Defines the root path route ("/")
-  # root "articles#index"
+  namespace :portfolio do
+    get 'returns', to: 'returns#index'
+    get 'holdings', to: 'holdings#index'
+  end
 end
