@@ -3,18 +3,19 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '3.1.2'
 
-gem 'rails', '~> 7.0.4'
+gem 'jbuilder', '~> 2.10'
+gem 'money-rails', '~> 1.15'
 gem 'pg', '~> 1.1'
 gem 'puma', '~> 5.0'
-gem 'jbuilder', '~> 2.10'
+gem 'rails', '~> 7.0.4'
 
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 4.0"
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
 
-gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 gem 'bootsnap', require: false
+gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 # gem "rack-cors"

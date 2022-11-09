@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Portfolio::Returns', type: :request do
+RSpec.describe 'Portfolios::Returns', type: :request do
   describe 'GET /index' do
     it 'returns http success' do
       get '/portfolio/returns'
