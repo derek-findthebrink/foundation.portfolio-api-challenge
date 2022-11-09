@@ -17,7 +17,7 @@ development:
 
 test:
   <<: *default
-  url: <%= ENV.fetch("PORTFOLIO_DATABASE_TEST_URL") %>
+  url: <%= ENV.fetch("PORTFOLIO_DATABASE_TEST_URL") { '' } %>
 
 production:
   <<: *default
