@@ -23,6 +23,7 @@ gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 group :development, :test do
   gem 'debug', platforms: %i[mri mingw x64_mingw]
   # TODO: add versions
+  gem 'factory_bot_rails', '~> 6.2'
   gem 'pry'
   gem 'pry-doc'
   gem 'pry-rails', '~> 0.3.9'
