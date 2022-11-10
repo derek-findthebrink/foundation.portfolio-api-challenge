@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  get 'portfolio', to: 'portfolio#index'
+  get 'portfolio', to: 'portfolios#index'
 
   namespace :portfolios, path: 'portfolio' do
     get 'returns', to: 'returns#index'
