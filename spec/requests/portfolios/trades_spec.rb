@@ -30,6 +30,7 @@ RSpec.describe 'Portfolios::Trades', type: :request do
   end
 
   describe 'PUT /portfolio/trades/:id' do
+    # TODO: clean this up, haha
     let(:new_symbol) { 'noodle' }
     let(:stock) { Stock.create!(symbol: 'thnc') }
     let(:original_trade_attributes) do
@@ -77,4 +78,9 @@ RSpec.describe 'Portfolios::Trades', type: :request do
       end
     end
   end
+
+  # NOTE: required tests
+  # - DELETE /portfolio/trades/:id
+  #   - it should delete the record
+  #   - when the record does not exist, it should send an error
 end

@@ -5,7 +5,7 @@ class ApplicationController < ActionController::API
   let(:portfolio) { Portfolio.first }
 
   def render_failure(message, status_code = :bad_request)
-    render body: {
+    render json: {
       success: false,
       error: message
     }, status: status_code
