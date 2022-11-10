@@ -1,3 +1,13 @@
+# Structures all of the initial database types required by the DB
+#
+# I'm using one migration file for everything here as opposed to using multiple
+# files because it helps me speed up iterating on different data structures as
+# the project comes together. As soon as the project goes to production / any
+# non-ephemeral environment, then I would always create new migration files for
+# each table in order to:
+# - avoid damaging the migrations process
+# - avoid damaging live data
+# - avoid annoying my teammates :D
 class CreateInitialTables < ActiveRecord::Migration[7.0]
   def change
     create_table :portfolios do |t|
@@ -8,6 +18,9 @@ class CreateInitialTables < ActiveRecord::Migration[7.0]
       t.string :symbol, null: false
       t.timestamps
     end
+
+    # NOTE: constraining the DB to only allow unique stock symbols
+    add_index :stocks, :symbol, unique: true
 
     create_table :stock_prices do |t|
       t.datetime :time, comment: 'The time that the price was set on the market'
@@ -30,6 +43,6 @@ class CreateInitialTables < ActiveRecord::Migration[7.0]
     add_belongs_to :trades, :stock, foreign_key: true
     add_belongs_to :stock_prices, :stock, foreign_key: true
 
-    # TODO: add indexes
+    # TODO: add common query indexes
   end
 end

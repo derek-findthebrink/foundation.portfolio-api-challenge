@@ -37,6 +37,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_09_203733) do
     t.string "symbol", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["symbol"], name: "index_stocks_on_symbol", unique: true
   end
 
   create_table "trades", force: :cascade do |t|
