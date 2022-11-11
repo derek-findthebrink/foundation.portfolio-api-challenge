@@ -89,7 +89,7 @@ but it's likely that they will stay in there unless y'all want me to take a clos
 
 ## Bugs!
 
-**Purchase cost after a SELL is executed (GET /portfolio)**
+**purchase_cost and unrealized_gain_or_loss after a SELL is executed (GET /portfolio)**
 
 The purchase cost field behaves a bit strangely during SELL orders. It has to do with
 how the system isn't tracking the cash recouped from selling shares. This can result
