@@ -1,4 +1,41 @@
-# README
+# Foundation > Portfolio API Assignment
+
+**Author: Derek Moore**
+
+## Introduction
+
+**STILL UNDER DEVELOPMENT**
+
+The site is currently available in production with all of the assignment requirements
+fulfilled. I'm currently:
+- Filling out this README
+- Cleaning up my code
+- Adding additional tests that I think are necessary
+
+## ERD
+
+(in progress...)
+
+## Local Setup
+
+(in progress...)
+
+## Bugs!
+
+(in progress...)
+
+## Future Refactors & Tests
+
+These are the refactors and tests that I would plan on doing if this was really going into
+production.
+
+(in progress...)
+
+
+## Implementation Notes (Definitely Read Me)
+
+(in progress...)
+
 
 ## Postman
 
