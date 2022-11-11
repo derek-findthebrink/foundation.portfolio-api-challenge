@@ -1,6 +1,6 @@
 # displays current portfolio holdings
 class Portfolios::HoldingsController < ApplicationController
-  def index
-    render body: 'holdings index'
-  end
+  let(:holdings_result) { HoldingsReport.new(portfolio).result }
+
+  def index; end
 end
