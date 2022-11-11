@@ -22,14 +22,22 @@ class Portfolios::CreateTradeForm
   attr_reader :portfolio, :params, :stock, :trade
 
   def run!
-    stock_symbol = params['symbol']
-    @stock = Stock.find_or_create_by(symbol: stock_symbol.downcase)
+    stock_symbol = params['symbol'].downcase
+    @stock = find_or_create_stock(stock_symbol)
 
     @trade = portfolio.trades.create(trade_attributes)
   end
 
   def trade_attributes
     params.except('symbol').merge({ stock: stock, time: Time.current })
+  end
+
+  def find_or_create_stock(symbol)
+    stock = Stock.find_by(symbol: symbol)
+
+    return stock if stock.present?
+
+    Stock.create!(symbol: symbol)
   end
 
   def success?
