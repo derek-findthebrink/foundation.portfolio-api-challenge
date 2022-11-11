@@ -1,6 +1,6 @@
 # displays current returns
 class Portfolios::ReturnsController < ApplicationController
-  def index
-    render body: 'returns index'
-  end
+  let(:returns_result) { ReturnsReport.new(portfolio).result }
+
+  def index; end
 end
