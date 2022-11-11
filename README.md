@@ -14,7 +14,7 @@ fulfilled. I'm currently:
 
 I'll send out an email when the code is ready to go. For now though, the API is unlikely
 to change so, if you would like, you can take a look at that to check it for the correct
-inputs/outputs
+inputs/outputs.
 
 ## Implementation Notes (Definitely Read Me)
 
@@ -33,7 +33,7 @@ The available routes are:
 - PUT /portfolio/trades/:id
 - DEL /portfolio/trades/:id
 
-**Executing a trade**
+The params are available in the Postman section further down :D
 
 **Changing stock prices**
 
@@ -53,6 +53,23 @@ from an external API for sure, that would have been fun, but for now it works ju
 I've seeded the DB with a couple
 of stock price updates to start, but otherwise the only information the system gets about
 price comes from the trades that you execute.
+
+**Adding stocks**
+
+Similar to the stock prices thing above, stocks are added when you execute a trade
+on the POST /portfolio/trades route.
+
+Body sample:
+```json
+{
+    "trade": {
+        "trade_type": "BUY",
+        "quantity": 10,
+        "symbol": "bmo",
+        "price": 35
+    }
+}
+```
 
 **Bugs**
 
