@@ -103,6 +103,22 @@ Body sample:
 }
 ```
 
+**Database operations and SQL**
+
+In some places, I opt to use the database to perform aggregations over using ActiveRecord
+and ruby methods. This is something that I like doing personally, but it's something
+that's definitely team-dependant and should be assessed on a case-by-case basis.
+
+Using the database for these operations does a couple of things, with caveats:
+- over-the-wire data can be lower because data large sets don't need to be sent
+- code surface area can be reduced because we don't have to write the aggregation code ourselves
+- the database tends to be faster at these kinds of operations
+- CAVEAT: if the database is missing useful indexes this can actually still be pretty slow
+- CAVEAT: depending on the team, SQL can be difficult to reason about
+- CAVEAT: schema changes later on to allow new features may be more difficult, depending on the DB structure
+
+I like offloading operations to the database, but it definitely needs to be approached with caution
+
 **Some things aren't working quite right...**
 
 There are some bugs in there! Definitely check out **the bugs section below**, haha. I'm
@@ -150,7 +166,8 @@ The server will be available at: http://localhost:3000
 
 The purchase cost field behaves a bit strangely during SELL orders. It has to do with
 how the system isn't tracking the cash recouped from selling shares. This can result
-in the unrealized gain/loss being off after sales
+in the unrealized gain/loss being off after sales, in particular it can result in a
+net loss when in fact the portfolio would be swimming in cash, haha.
 
 I'm debating whether or not to fix this. If there's something straight-forward I can think of I'll
 do it, but it's likely that this will remain in there as it is.
@@ -174,6 +191,8 @@ production.
 - Change trades output in `GET /portfolio` to an object with the stock symbol as a key
   - It's currently an array of trades, which isn't very easy to scan as a person (or machine, haha)
   - To help a bit I sorted the results by `{ symbol: :asc, trade_time: :asc }`
+- De-duplicate & standardize API responses, including error handling and Result objects
+  - Make a catch-all JBuilder template for handling result errors
 
 (in progress...)
 
