@@ -112,6 +112,8 @@ but it's likely that they will stay in there unless y'all want me to take a clos
 
 ## ERD
 
+![image](https://user-images.githubusercontent.com/10052669/201326022-a45f86ce-d5d9-4546-9ff8-9d61319cb450.png)
+
 (in progress...)
 
 ## Local Setup
