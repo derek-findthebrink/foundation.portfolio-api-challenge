@@ -10,7 +10,9 @@ The site is currently available in production with all of the assignment require
 fulfilled. I'm currently:
 - Filling out this README
 - Cleaning up my code
-- Adding additional tests that I think are necessary
+  - removing TODO's and QUESTIONS
+  - refactoring any egregious code (other than ones noted in the Refactors section below)
+- Adding additional tests that I think are necessary and want you to see
 
 I'll send out an email when the code is ready to go. For now though, the API is unlikely
 to change so, if you would like, you can take a look at that to check it for the correct
@@ -33,7 +35,36 @@ The available routes are:
 - PUT /portfolio/trades/:id
 - DEL /portfolio/trades/:id
 
-The params are available in the Postman section further down :D
+The routes that contain `:id` in the path need that spot to be filled by the ID of the
+trade. The trade ID can be found on the route `GET /portfolio` in the trades section.
+
+The routes `POST /portfolio/trades` and `PUT /portfolio/trades/:id` expect body
+parameters, here are some samples:
+
+POST /portfolio/trades
+```json
+{
+    "trade": {
+        "trade_type": "BUY",
+        "quantity": 10,
+        "symbol": "bmo",
+        "price": 35
+    }
+}
+```
+
+PUT /portfolio/trades/:id
+```json
+{
+    "trade": {
+        "id": 1,
+        "quantity": 1000,
+        "price": 10,
+        "symbol": "shoe",
+        "trade_type": "SELL"
+    }
+}
+```
 
 **Changing stock prices**
 
@@ -71,9 +102,9 @@ Body sample:
 }
 ```
 
-**Bugs**
+**Some things aren't working quite right...**
 
-There are some bugs in there! Definitely check out the bugs section below, haha. I'm
+There are some bugs in there! Definitely check out **the bugs section below**, haha. I'm
 looking for solutions to 'em as I'm polishing the code and implementing missing tests,
 but it's likely that they will stay in there unless y'all want me to take a closer look.
 
@@ -85,7 +116,25 @@ but it's likely that they will stay in there unless y'all want me to take a clos
 
 ## Local Setup
 
-(in progress...)
+**Requirements**
+
+- docker
+- docker-compose
+- ruby v3.1.2 available on path
+- port 3000 on your local machine needs to be free
+- port 5432 on your local machine needs to be free (no local instances of Postgres running, usually)
+
+**Run**
+
+- In a terminal, run `docker-compose up` and wait until the DB indicates it has started
+- In a separate terminal, run the following commands from the root directory:
+  - `bin/bundle`
+  - `bin/rails db:create`
+  - `bin/rails db:migrate`
+  - `bin/rails db:seed`
+  - `bin/rails serve`
+
+The server will be available at: http://localhost:3000
 
 ## Bugs!
 
@@ -98,12 +147,31 @@ in the unrealized gain/loss being off after sales
 I'm debating whether or not to fix this. If there's something straight-forward I can think of I'll
 do it, but it's likely that this will remain in there as it is.
 
+**body and URL path require the same ID in order for `PUT /portfolio/trades/:id` to work**
+
+In order for trade updating to work, both the body and the URL path require the same ID
+to be present. This is silly, I'm going to try to patch this one before review so that only the URL requires
+the ID.
+
 (in progress...)
 
 ## Future Refactors & Tests
 
 These are the refactors and tests that I would plan on doing if this was really going into
 production.
+
+### Refactors
+
+- De-duplicate queries between reports by creating `Query` objects (/app/queries/*)
+- Change trades output in `GET /portfolio` to an object with the stock symbol as a key
+  - It's currently an array of trades, which isn't very easy to scan as a person (or machine, haha)
+  - To help a bit I sorted the results by `{ symbol: :asc, trade_time: :asc }`
+
+(in progress...)
+
+### Tests
+
+-
 
 (in progress...)
 
@@ -127,8 +195,11 @@ For reference, the production URL is: https://foundation--portfolio-api-chal.her
 Most routes receive params as JSON, so you can find the params to change under the
 Body tab. Under the body tab, set it to raw/JSON and go for it/have fun! Haha
 
-# Post-Production
+## Post-Production
 
-## Possible Optimizations
-- [ ] Remove any unnecessary rails modules from controllers
-- [ ] Disable action mailbox
+This section contains some things I noticed while coding that might need attention
+in the future or feel like good ideas
+
+### Possible Optimizations
+- [ ] Remove any unnecessary rails modules (avoid using `require 'rails/all'` in config/application.rb)
+- [ ] Add some security to the endpoints (perhaps bearer token, cors, etc.)
