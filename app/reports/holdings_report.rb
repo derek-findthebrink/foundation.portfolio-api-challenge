@@ -3,6 +3,9 @@ class HoldingsReport
 
   def initialize(portfolio)
     @portfolio = portfolio
+    @quantities = fetch_quantities
+    @average_buy_prices = fetch_average_buy_prices
+    @symbols = quantities.keys
   end
 
   def result
@@ -11,27 +14,36 @@ class HoldingsReport
 
   private
 
-  attr_reader :portfolio
+  attr_reader :portfolio, :quantities, :average_buy_prices, :symbols
 
   def data
     final = []
 
-    query.each do |row|
-      symbol, signed_quantity, average_price_cents = row
+    symbols.each do |symbol|
       final << {
         symbol: symbol,
-        signed_quantity: signed_quantity,
-        average_price_cents: average_price_cents
+        signed_quantity: quantities[symbol],
+        average_price_cents: average_buy_prices[symbol]
       }
     end
 
     final
   end
 
-  def query
+  def fetch_quantities
     portfolio.trades.joins(:stock)
              .select(:symbol, :signed_quantity)
              .group(:symbol)
-             .pluck('symbol', 'SUM(signed_quantity)', 'AVG(price_cents)')
+             .having('SUM(signed_quantity) > 0')
+             .pluck('symbol', 'SUM(signed_quantity)')
+             .to_h
+  end
+
+  def fetch_average_buy_prices
+    portfolio.trades.joins(:stock)
+             .where(trade_type: Trade::BUY)
+             .group(:symbol)
+             .pluck('symbol', 'AVG(price_cents)')
+             .to_h
   end
 end
