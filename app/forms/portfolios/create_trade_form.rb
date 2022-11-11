@@ -1,14 +1,15 @@
 # Handles all logic for creating trades
 class Portfolios::CreateTradeForm
-  # TODO: ensure portfolio is an instance of portfolio
-  # TODO: add validations on params
-  # TODO: consider using new instance of model and validating on it directly
+  # IDEA: consider using new instance of model and validating on it directly
 
   Result = Struct.new(:success, :trade)
 
   def initialize(portfolio, params)
+    # IDEA: ensure portfolio is an instance of portfolio
     @portfolio = portfolio
+    # IDEA: add validations on params
     @params = params
+    @success = false
 
     run!
   end
@@ -26,6 +27,12 @@ class Portfolios::CreateTradeForm
     @stock = find_or_create_stock(stock_symbol)
 
     @trade = portfolio.trades.create(trade_attributes)
+    @success = if trade.persisted?
+                 true
+               else
+                 # IDEA: add error message to Result
+                 false
+               end
   end
 
   def trade_attributes
@@ -43,6 +50,6 @@ class Portfolios::CreateTradeForm
   def success?
     # TODO: check for trade creation errors
     # NOTE: in this case, stock find/create errors are not expected
-    true
+    @success
   end
 end

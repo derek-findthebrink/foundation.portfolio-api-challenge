@@ -1,5 +1,7 @@
 # Base controller
 class ApplicationController < ActionController::API
+  # NOTE: this is a technique I really like! Take a look at the file
+  # /app/controllers/concerns/lettable.rb for more info
   extend Lettable
 
   let(:portfolio) { Portfolio.first }

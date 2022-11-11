@@ -6,7 +6,6 @@ class Trade < ApplicationRecord
   SELL = 'SELL'.freeze
 
   belongs_to :portfolio
-  # TODO: consider adding dependency actions (e.g., if stock is deleted, what happens to trades?)
   belongs_to :stock
 
   delegate :symbol, to: :stock

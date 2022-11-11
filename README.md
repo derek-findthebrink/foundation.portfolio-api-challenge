@@ -8,12 +8,12 @@
 
 The site is currently available in production with all of the assignment requirements
 fulfilled. I'm currently:
-- Filling out this README
-- Cleaning up my code
+- [ ] Filling out this README
+- [ ] Cleaning up my code
   - removing TODO's and QUESTIONS
   - refactoring any egregious code (other than ones noted in the Refactors section below)
   - adding explanatory comments on bits of code that might be confusing
-- Adding additional tests that I think are necessary and want you to see
+- [ ] Adding additional tests that I think are necessary and want you to see
 
 I'll send out an email when the code is ready to go. For now though, the API is unlikely
 to change so, if you would like, you can take a look at that to check it for the correct

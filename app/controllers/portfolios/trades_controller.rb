@@ -73,6 +73,6 @@ class Portfolios::TradesController < ApplicationController
   end
 
   def trade_present?(body)
-    portfolio.trades.find(trade_id(body))
+    portfolio.trades.find_by_id(trade_id(body))
   end
 end

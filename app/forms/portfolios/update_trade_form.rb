@@ -1,15 +1,14 @@
 # Handles all logic for creating trades
 class Portfolios::UpdateTradeForm
-  # TODO: ensure portfolio is an instance of portfolio
-  # TODO: add validations on params
-  # TODO: consider using new instance of model and validating on it directly
-
   Result = Struct.new(:success, :trade)
 
   def initialize(portfolio, params)
+    # IDEA: ensure portfolio is an instance of portfolio
     @portfolio = portfolio
     @trade = portfolio.trades.find(params['id'])
+    # IDEA: add validations on params
     @params = params
+    @success = false
 
     run!
   end
@@ -23,17 +22,21 @@ class Portfolios::UpdateTradeForm
   attr_reader :portfolio, :params, :stock, :trade
 
   def run!
-    # TODO: raise error if trade can't be found
     stock_symbol = params['symbol']
 
-    # TODO: ensure symbol update is working as expected
     @stock = if stock_symbol.present?
                Stock.find_or_create_by(symbol: stock_symbol)
              else
                trade.stock
              end
 
-    trade.update(trade_attributes)
+    updated = trade.update(trade_attributes)
+
+    @success = if updated
+                 true
+               else
+                 false
+               end
   end
 
   def trade_attributes
@@ -41,7 +44,6 @@ class Portfolios::UpdateTradeForm
   end
 
   def success?
-    # TODO: check for trade update errors
-    true
+    @success
   end
 end
