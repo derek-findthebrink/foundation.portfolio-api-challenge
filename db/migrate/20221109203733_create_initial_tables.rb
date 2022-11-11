@@ -33,7 +33,13 @@ class CreateInitialTables < ActiveRecord::Migration[7.0]
 
     create_table :trades do |t|
       t.enum :trade_type, enum_type: 'trade_types', null: false
-      t.numeric :quantity, null: false
+      # TODO: remove any rounding happening on this col
+      # TODO: try upgrading postgres adapter to latest if possible
+      t.integer :quantity, null: false
+      t.virtual :signed_quantity, type: :integer,
+                                  as: "CASE WHEN trade_type = '#{Trade::SELL}'::trade_types THEN -quantity ELSE quantity END",
+                                  stored: true,
+                                  comment: 'Shows the quantity impact on stock holdings'
       t.datetime :time, null: false
       t.monetize :price, null: false
       t.timestamps

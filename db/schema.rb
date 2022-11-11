@@ -42,7 +42,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_09_203733) do
 
   create_table "trades", force: :cascade do |t|
     t.enum "trade_type", null: false, enum_type: "trade_types"
-    t.decimal "quantity", null: false
+    t.integer "quantity", null: false
+    t.virtual "signed_quantity", type: :integer, comment: "Shows the quantity impact on stock holdings", as: "\nCASE\n    WHEN (trade_type = 'SELL'::trade_types) THEN (- quantity)\n    ELSE quantity\nEND", stored: true
     t.datetime "time", null: false
     t.integer "price_cents", default: 0, null: false
     t.string "price_currency", default: "CAD", null: false
