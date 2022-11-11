@@ -40,6 +40,19 @@ portfolio.trades.create(
   quantity: 100, price: price_in_dollars(10.0)
 )
 
+portfolio.trades.create(
+  stock: thnc, trade_type: :buy, time: Time.current,
+  quantity: 100, price: price_in_dollars(1.0)
+)
+portfolio.trades.create(
+  stock: bmo, trade_type: :buy, time: Time.current,
+  quantity: 100, price: price_in_dollars(10.0)
+)
+portfolio.trades.create(
+  stock: noodle, trade_type: :buy, time: Time.current,
+  quantity: 100, price: price_in_dollars(20.0)
+)
+
 # Random trades to help with testing holdings report
 # TODO: change to something nicer in prod
 # trade_types = %i[buy sell]

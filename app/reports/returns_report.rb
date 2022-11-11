@@ -45,7 +45,7 @@ class ReturnsReport
   def fetch_purchase_values
     trades = portfolio.trades.joins(:stock)
                       .includes(:stock)
-                      .where({ stocks: { symbol: current_holdings_symbols } })
+                      .where({ trade_type: Trade::BUY, stocks: { symbol: current_holdings_symbols } })
 
     trades.each_with_object({}) do |trade, acc|
       acc[trade.stock.symbol] ||= 0

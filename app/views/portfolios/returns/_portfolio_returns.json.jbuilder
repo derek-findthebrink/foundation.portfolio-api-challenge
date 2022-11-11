@@ -5,6 +5,6 @@ json.returns do
     json.purchase_cost Money.from_cents(portfolio_return[:purchase_cost_cents], 'CAD').format
     json.current_stock_value Money.from_cents(portfolio_return[:current_market_price_cents], 'CAD').format
     json.current_holding_value Money.from_cents(portfolio_return[:current_holding_value_cents], 'CAD').format
-    json.net_return Money.from_cents(portfolio_return[:net_return_cents], 'CAD').format
+    json.unrealized_gain_or_loss Money.from_cents(portfolio_return[:net_return_cents], 'CAD').format
   end
 end
