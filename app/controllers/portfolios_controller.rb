@@ -1,13 +1,12 @@
 # Displays portfolio data
 class PortfoliosController < ApplicationController
-  Result = Struct.new(:success, :data) do
-    def success?
-      success
-    end
+  let(:holdings) { HoldingsReport.new(portfolio).result.holdings }
+  let(:returns) { ReturnsReport.new(portfolio).result.returns }
+  let(:trade_query) do
+    portfolio.trades.joins(:stock)
+             .includes(:stock)
+             .order(symbol: :asc, time: :asc)
   end
-
-  # TODO: make success actually reflect success?
-  let(:result) { Result.new(true, portfolio) }
 
   def index; end
 end

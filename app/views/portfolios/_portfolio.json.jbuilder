@@ -1,8 +1,12 @@
-json.extract! portfolio, :id, :created_at, :updated_at
-# TODO: add holdings
-# TODO: trades should be sorted by time ascending
-json.trades portfolio.trades do |trade|
-  # TODO: avoid n+1 here (symbol requests stock)
-  json.extract! trade, :id, :time, :price_cents, :quantity, :symbol
+json.partial! partial: 'portfolios/returns/portfolio_returns', portfolio_returns: returns
+
+json.partial! partial: 'portfolios/holdings/portfolio_holdings', portfolio_holdings: holdings
+
+json.trades trade_query do |trade|
+  json.symbol trade.symbol
+  json.trade_type trade.trade_type
+  json.quantity trade.quantity
+  json.price_cents Money.from_cents(trade.price_cents, 'CAD').format
+  json.trade_time trade.time.to_formatted_s(:rfc822)
+  json.trade_id trade.id
 end
-json.url portfolio_url(portfolio, format: :json)
