@@ -4,7 +4,7 @@
 
 ## Introduction
 
-**STILL UNDER DEVELOPMENT**
+ * * **STILL UNDER DEVELOPMENT** * *
 
 The site is currently available in production with all of the assignment requirements
 fulfilled. I'm currently:
@@ -114,7 +114,12 @@ but it's likely that they will stay in there unless y'all want me to take a clos
 
 ![image](https://user-images.githubusercontent.com/10052669/201326022-a45f86ce-d5d9-4546-9ff8-9d61319cb450.png)
 
-(in progress...)
+Here's the structure of the database.
+
+Some choices that I made:
+
+- StockPrice has it's own table
+  - Why? Good question, haha. I did this because I figured that it better matched how stock prices work in the real world, which I believe helps future developers reason about the entity. This made some of the reporting queries more difficult for this assignment (there's a bit of a scary scope on the StockPrice model, definitely something that's worth testing). On a more positive note though, it also could allow for visualizations of stock price or returns over time, which feels like something that might come up if this app were to be developed further. I like this tradeoff, but I would want to gauge the team's comfort with writing and reviewing SQL before making more scopes like this
 
 ## Local Setup
 
