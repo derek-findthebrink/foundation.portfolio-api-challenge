@@ -1,0 +1,150 @@
+{
+	"info": {
+		"_postman_id": "28fd6bee-7bcd-4f86-ac52-039924bdf462",
+		"name": "portfolio",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET /portfolio",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{HOST}}/portfolio",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"portfolio"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET /portfolio/holdings",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{HOST}}/portfolio/holdings",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"portfolio",
+						"holdings"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET /portfolio/returns",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{HOST}}/portfolio/returns",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"portfolio",
+						"returns"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST /portfolio/trades",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"trade\": {\n        \"trade_type\": \"SELL\",\n        \"quantity\": 100,\n        \"symbol\": \"LEH\",\n        \"price\": 2.37\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{HOST}}/portfolio/trades",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"portfolio",
+						"trades"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT /portfolio/trades/:id",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"trade\": {\n        \"id\": 1,\n        \"quantity\": 1000,\n        \"symbol\": \"UPDATED!\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{HOST}}/portfolio/trades/:id",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"portfolio",
+						"trades",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "1",
+							"description": "The ID of the trade to update"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE /portfolio/trades/:id",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{HOST}}/portfolio/trades/:id",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"portfolio",
+						"trades",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "1",
+							"description": "The ID of the trade to destroy"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

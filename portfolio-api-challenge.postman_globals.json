@@ -1,0 +1,14 @@
+{
+	"id": "89abdc97-6f3a-4134-8399-3abad361f81e",
+	"values": [
+		{
+			"key": "HOST",
+			"value": "https://foundation--portfolio-api-chal.herokuapp.com",
+			"enabled": true
+		}
+	],
+	"name": "foundation.portfolio-api-challenge Globals",
+	"_postman_variable_scope": "globals",
+	"_postman_exported_at": "2022-11-11T07:36:20.823Z",
+	"_postman_exported_using": "Postman/8.6.1"
+}
