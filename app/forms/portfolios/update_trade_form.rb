@@ -1,5 +1,6 @@
 # Handles all logic for creating trades
 class Portfolios::UpdateTradeForm
+  # TODO: add tests!
   Result = Struct.new(:success, :trade)
 
   def initialize(portfolio, params)

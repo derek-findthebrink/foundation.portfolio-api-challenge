@@ -1,4 +1,6 @@
+# Extracts, calculates and produces the required data to show portfolio returns
 class ReturnsReport
+  # TODO: Add tests
   Result = Struct.new(:success, :returns)
 
   def initialize(portfolio)

@@ -1,5 +1,6 @@
 # Handles all logic for creating trades
 class Portfolios::CreateTradeForm
+  # TODO: add tests!
   # IDEA: consider using new instance of model and validating on it directly
 
   Result = Struct.new(:success, :trade)

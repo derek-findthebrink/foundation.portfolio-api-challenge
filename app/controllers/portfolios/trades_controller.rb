@@ -1,5 +1,5 @@
 class Portfolios::TradesController < ApplicationController
-  # TODO: add unpermitted params error messaging
+  # IDEA: add unpermitted params error messaging
   let(:create_result) do
     Portfolios::CreateTradeForm
       .new(portfolio, create_params.to_h)
@@ -15,17 +15,17 @@ class Portfolios::TradesController < ApplicationController
   def create; end
 
   def update
-    # QUESTION: this could probs be handled with active-record alone, right?
-    # TODO: change to before_action filter
+    # IDEA: change to before_action filter
     unless id_in_params?(update_params)
       render_failure('You must pass a trade ID in order to update a trade', :bad_request)
+      # NOTE: we return early here to prevent the default rendering mechanism from kicking in
       return
     end
 
-    # TODO: change to before_action filter
-    # TODO: change to rescue block on ActiveRecord::RecordNotFound
+    # IDEA: change to before_action filter
     unless trade_present?(update_params)
       render_failure("Could not find trade with ID: #{trade_id(update_params)}", :not_found)
+      # NOTE: we return early here to prevent the default rendering mechanism from kicking in
       # rubocop:disable Style/RedundantReturn
       return
       # rubocop:enable Style/RedundantReturn
@@ -33,7 +33,7 @@ class Portfolios::TradesController < ApplicationController
   end
 
   def destroy
-    # TODO: change to before_action filter
+    # IDEA: change to before_action filter
     unless params.dig('id').present?
       render_failure('You must pass a trade ID in order to delete a trade', :bad_request)
       return
@@ -41,7 +41,7 @@ class Portfolios::TradesController < ApplicationController
 
     id = params.fetch('id')
 
-    # TODO: change to before_action filter
+    # IDEA: change to around_action filter
     begin
       portfolio.trades.destroy(id)
       render json: { success: true, data: { trade: { id: id } } }
@@ -57,8 +57,7 @@ class Portfolios::TradesController < ApplicationController
   end
 
   def update_params
-    # TODO: ensure ID is included in params
-    # TODO: get the ID from the route instead
+    # IDEA: ID can and probs should be pulled from the path only
     params.require(:trade)
           .permit(:id, :time, :trade_type, :quantity, :symbol,
                   :price)

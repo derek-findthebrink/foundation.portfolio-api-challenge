@@ -1,7 +1,7 @@
 # Holds information on trades executed within a portfolio
 class Trade < ApplicationRecord
   # NOTE: the values of these enums CANNOT BE CHANGED without also altering the
-  # DB enum
+  # DB enum. Don't change 'em unless you also write a migration for this! :D
   BUY = 'BUY'.freeze
   SELL = 'SELL'.freeze
 
@@ -19,7 +19,7 @@ class Trade < ApplicationRecord
     greater_than_or_equal_to: 0
   }
 
-  # TODO: add validations (quantity, type, stock)
+  # TODO: add validations (quantity, trade_type, stock)
 
   after_save :update_stock_price
 

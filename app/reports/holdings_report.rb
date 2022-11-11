@@ -1,4 +1,6 @@
+# Extracts, calculates and produces the required data to show portfolio holdings
 class HoldingsReport
+  # TODO: Add tests!
   Result = Struct.new(:success, :holdings)
 
   def initialize(portfolio)
@@ -31,6 +33,8 @@ class HoldingsReport
   end
 
   def fetch_quantities
+    # IDEA: make a scope out of the commonly used components of this and other
+    # reporting queries
     portfolio.trades.joins(:stock)
              .select(:symbol, :signed_quantity)
              .group(:symbol)
