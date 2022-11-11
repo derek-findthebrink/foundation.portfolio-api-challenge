@@ -144,12 +144,39 @@ Some choices that I made:
 
 - docker
 - docker-compose
-- ruby v3.1.2 available on path
+- ruby v3.1.2 available on path (this project is configured to use ASDF as a version manager)
 - port 3000 on your local machine needs to be free
 - port 5432 on your local machine needs to be free (no local instances of Postgres running, usually)
 
+**Environment variables**
+
+This project is configured to manage ENV variables using direnv. The direnv .envrc
+is available in the project if that's what you like to use too! Otherwise, here
+are the required environment variables. Either way, you'll want to copy the values
+below and paste them into a .env file in the root of the project.
+
+The database variables can all be changed to whatever you prefer :D
+
+```bash
+RAILS_ENV=development
+
+PORTFOLIO_DATABASE_HOST=localhost
+PORTFOLIO_DATABASE_USER=postgres
+PORTFOLIO_DATABASE_NAME=portfolio-development
+PORTFOLIO_DATABASE_PASSWORD=(DTPWt!)gX28beE0aFyvH0kcOQrmqC*6IJxo4f
+PORTFOLIO_DATABASE_URL=postgres://$PORTFOLIO_DATABASE_USER:$PORTFOLIO_DATABASE_PASSWORD@$PORTFOLIO_DATABASE_HOST/$PORTFOLIO_DATABASE_NAME
+PORTFOLIO_DATABASE_TEST_URL=postgres://$PORTFOLIO_DATABASE_USER:$PORTFOLIO_DATABASE_PASSWORD@$PORTFOLIO_DATABASE_HOST/portfolio-test
+
+RAILS_MAX_THREADS=5
+WEB_CONCURRENCY=1
+
+```
+
 **Run**
 
+- Copy and paste the above environment variables into a .env file in the root of the project
+- Source or otherwise load the required environment variables into your shell program
+  - e.g., `source .env` (not ideal, it'll pollute your system ENV vars, but it'll do in a pinch)
 - In a terminal, run `docker-compose up` and wait until the DB indicates it has started
 - In a separate terminal, run the following commands from the root directory:
   - `bin/bundle`
