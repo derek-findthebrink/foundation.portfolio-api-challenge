@@ -9,11 +9,11 @@
 The site is currently available in production with all of the assignment requirements
 fulfilled. I'm currently:
 - [ ] Filling out this README
-- [ ] Cleaning up my code
+- [x] Cleaning up my code
   - removing TODO's and QUESTIONS
   - refactoring any egregious code (other than ones noted in the Refactors section below)
   - adding explanatory comments on bits of code that might be confusing
-- [ ] Adding additional tests that I think are necessary and want you to see
+- [x] Adding additional tests that I think are necessary and want you to see
 
 I'll send out an email when the code is ready to go. For now though, the API is unlikely
 to change so, if you would like, you can take a look at that to check it for the correct
@@ -125,8 +125,6 @@ There are some bugs in there! Definitely check out **the bugs section below**, h
 looking for solutions to 'em as I'm polishing the code and implementing missing tests,
 but it's likely that they will stay in there unless y'all want me to take a closer look.
 
-(in progress...)
-
 ## ERD
 
 ![image](https://user-images.githubusercontent.com/10052669/201326022-a45f86ce-d5d9-4546-9ff8-9d61319cb450.png)
@@ -137,6 +135,8 @@ Some choices that I made:
 
 - StockPrice has it's own table
   - Why? Good question, haha. I did this because I figured that it better matched how stock prices work in the real world, which I believe helps future developers reason about the entity. This made some of the reporting queries more difficult for this assignment (there's a bit of a scary scope on the StockPrice model, definitely something that's worth testing). On a more positive note though, it also could allow for visualizations of stock price or returns over time, which feels like something that might come up if this app were to be developed further. I like this tradeoff, but I would want to gauge the team's comfort with writing and reviewing SQL before making more scopes like this
+- Portfolio does not carry price data
+  - For the same reason above :D
 
 ## Local Setup
 
@@ -189,12 +189,13 @@ The server will be available at: http://localhost:3000
 
 ## Bugs!
 
-**purchase_cost and unrealized_gain_or_loss after a SELL is executed (GET /portfolio)**
+**unrealized_gain_or_loss after a SELL is executed (GET /portfolio)**
 
-The purchase cost field behaves a bit strangely during SELL orders. It has to do with
-how the system isn't tracking the cash recouped from selling shares. This can result
-in the unrealized gain/loss being off after sales, in particular it can result in a
-net loss when in fact the portfolio would be swimming in cash, haha.
+The unrealized_gain_or_loss behaves a bit strangely during SELL orders. It has
+to do with how I originally implemented the average cost function. I have a fix
+in mind, I'll try to get it done before you review. This can result in the
+unrealized gain/loss being off after sales, in particular it can result in a net
+loss when in fact holding would be a gain.
 
 I'm debating whether or not to fix this. If there's something straight-forward I can think of I'll
 do it, but it's likely that this will remain in there as it is.
@@ -225,7 +226,7 @@ production.
 
 ### Tests
 
--
+- I would use Postman to monitor changes on the API, as a simple UA test
 
 (in progress...)
 
