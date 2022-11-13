@@ -201,6 +201,10 @@ the ID.
 
 (in progress...)
 
+## Testing
+
+To run the unit tests (rspec), run: `rails spec`
+
 ## Future Refactors & Tests
 
 These are the refactors and tests that I would plan on doing if this was really going into
