@@ -4,20 +4,10 @@
 
 ## Introduction
 
- * * **STILL UNDER DEVELOPMENT** * *
-
-The site is currently available in production with all of the assignment requirements
-fulfilled. I'm currently:
-- [ ] Filling out this README
-- [x] Cleaning up my code
-  - removing TODO's and QUESTIONS
-  - refactoring any egregious code (other than ones noted in the Refactors section below)
-  - adding explanatory comments on bits of code that might be confusing
-- [x] Adding additional tests that I think are necessary and want you to see
-
-I'll send out an email when the code is ready to go. For now though, the API is unlikely
-to change so, if you would like, you can take a look at that to check it for the correct
-inputs/outputs.
+Thanks so much for giving me the opportunity to show you how I like to code! I
+hope that you find the assignment interesting, and you can see opportunities where
+I can contribute to your team and product. I actually really enjoyed working on
+this :D
 
 ## Implementation Notes (Definitely Read Me)
 
@@ -69,22 +59,25 @@ PUT /portfolio/trades/:id
 
 **Changing stock prices**
 
-Stock prices change whenever a trade is executed. The price of the stock is set to the price
-of the most recent buy/sell order. For example, when the original price of "BMO" is $30.00,
-and you execute a BUY trade on "BMO" for $40.00, then the new price of "BMO" will be updated
-to $40.00. The same applies to SELL orders, and it doesn't matter what the quantity you put
-in for the number of shares.
+Stock prices change whenever a trade is executed. The price of the stock is set
+to the price of the most recent buy/sell order. For example, when the original
+price of "BMO" is $30.00, and you execute a BUY trade on "BMO" for $40.00, then
+the new price of "BMO" will be updated to $40.00. The same applies to SELL
+orders, and it doesn't matter what the quantity you put in for the number of
+shares.
 
-I did it this way because I didn't integrate it with any external API's to pull stock prices,
-and I figured that this is really how stock prices are set. I'm not 100% on this, but I understand that when you're
-looking at a stock ticker on TV or on a website the $ amount you're looking at is the
-price of the most recent BUY/SELL order on that stock. Based on that, I figured that it would
-make sense to have this system operate that way. I would have preferred to pull amounts
-from an external API for sure, that would have been fun, but for now it works just on created trades.
+I did it this way because I didn't integrate it with any external API's to pull
+stock prices, and I figured that this is really how stock prices are set. I'm
+not 100% on this, but I understand that when you're looking at a stock ticker on
+TV or on a website the $ amount you're looking at is the price of the most
+recent BUY/SELL order on that stock. Based on that, I figured that it would make
+sense to have this system operate that way. I would have preferred to pull
+amounts from an external API for sure, that would have been fun, but for now it
+works just on created trades.
 
-I've seeded the DB with a couple
-of stock price updates to start, but otherwise the only information the system gets about
-price comes from the trades that you execute.
+I've seeded the DB with a couple of stock price updates to start, but otherwise
+the only information the system gets about price comes from the trades that you
+execute.
 
 **Adding stocks**
 
@@ -135,7 +128,7 @@ Some choices that I made:
 
 - StockPrice has it's own table
   - Why? Good question, haha. I did this because I figured that it better matched how stock prices work in the real world, which I believe helps future developers reason about the entity. This made some of the reporting queries more difficult for this assignment (there's a bit of a scary scope on the StockPrice model, definitely something that's worth testing). On a more positive note though, it also could allow for visualizations of stock price or returns over time, which feels like something that might come up if this app were to be developed further. I like this tradeoff, but I would want to gauge the team's comfort with writing and reviewing SQL before making more scopes like this
-- Portfolio does not carry price data
+- Stock does not carry price data
   - For the same reason above :D
 
 ## Local Setup
@@ -222,13 +215,10 @@ production.
 - De-duplicate & standardize API responses, including error handling and Result objects
   - Make a catch-all JBuilder template for handling result errors
 
-(in progress...)
-
 ### Tests
 
 - I would use Postman to monitor changes on the API, as a simple UA test
-
-(in progress...)
+- I would complete the tests on the `ReturnsReport` (these are pretty important)
 
 
 ## Postman
