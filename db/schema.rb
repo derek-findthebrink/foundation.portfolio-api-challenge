@@ -24,7 +24,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_09_203733) do
   end
 
   create_table "stock_prices", force: :cascade do |t|
-    t.datetime "time", comment: "The time that the price was set on the market"
+    t.datetime "time", default: -> { "CURRENT_TIMESTAMP" }, null: false, comment: "The time that the price was set on the market"
     t.integer "price_cents", default: 0, null: false
     t.string "price_currency", default: "CAD", null: false
     t.datetime "created_at", null: false
@@ -44,7 +44,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_09_203733) do
     t.enum "trade_type", null: false, enum_type: "trade_types"
     t.integer "quantity", null: false
     t.virtual "signed_quantity", type: :integer, comment: "Shows the quantity impact on stock holdings", as: "\nCASE\n    WHEN (trade_type = 'SELL'::trade_types) THEN (- quantity)\n    ELSE quantity\nEND", stored: true
-    t.datetime "time", null: false
+    t.datetime "time", default: -> { "CURRENT_TIMESTAMP" }, null: false
     t.integer "price_cents", default: 0, null: false
     t.string "price_currency", default: "CAD", null: false
     t.datetime "created_at", null: false

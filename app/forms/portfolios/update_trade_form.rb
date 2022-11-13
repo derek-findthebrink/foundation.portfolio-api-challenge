@@ -6,10 +6,12 @@ class Portfolios::UpdateTradeForm
   def initialize(portfolio, params)
     # IDEA: ensure portfolio is an instance of portfolio
     @portfolio = portfolio
-    @trade = portfolio.trades.find(params['id'])
-    # IDEA: add validations on params
     @params = params
+    @trade = portfolio.trades.find_by_id(params['id'])
+    # IDEA: add validations on params
     @success = false
+
+    return unless trade.present?
 
     run!
   end
@@ -23,17 +25,13 @@ class Portfolios::UpdateTradeForm
   attr_reader :portfolio, :params, :stock, :trade
 
   def run!
-    stock_symbol = params['symbol']
-
     @stock = if stock_symbol.present?
                Stock.find_or_create_by(symbol: stock_symbol)
              else
                trade.stock
              end
 
-    updated = trade.update(trade_attributes)
-
-    @success = if updated
+    @success = if trade.update(trade_attributes)
                  true
                else
                  false
@@ -42,6 +40,10 @@ class Portfolios::UpdateTradeForm
 
   def trade_attributes
     params.except('id', 'symbol').merge(stock: stock)
+  end
+
+  def stock_symbol
+    params['symbol']
   end
 
   def success?

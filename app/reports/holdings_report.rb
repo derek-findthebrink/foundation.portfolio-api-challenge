@@ -22,10 +22,14 @@ class HoldingsReport
     final = []
 
     symbols.each do |symbol|
+      quantity = quantities[symbol]
+      purchase_value = purchase_values[symbol]
+      average_price_cents = purchase_value[:cost_cents] / purchase_value[:quantity]
+
       final << {
         symbol: symbol,
-        signed_quantity: quantities[symbol],
-        average_price_cents: purchase_values[symbol] / quantities[symbol]
+        signed_quantity: quantity,
+        average_price_cents: average_price_cents
       }
     end
 
@@ -49,8 +53,9 @@ class HoldingsReport
                       .where({ trade_type: Trade::BUY, stocks: { symbol: symbols } })
 
     trades.each_with_object({}) do |trade, acc|
-      acc[trade.stock.symbol] ||= 0
-      acc[trade.stock.symbol] += trade.price_cents * trade.signed_quantity
+      acc[trade.stock.symbol] ||= { cost_cents: 0, quantity: 0 }
+      acc[trade.stock.symbol][:cost_cents] += trade.price_cents * trade.signed_quantity
+      acc[trade.stock.symbol][:quantity] += trade.signed_quantity
     end
   end
 end

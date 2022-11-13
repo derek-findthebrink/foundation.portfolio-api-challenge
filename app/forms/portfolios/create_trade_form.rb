@@ -1,6 +1,5 @@
 # Handles all logic for creating trades
 class Portfolios::CreateTradeForm
-  # TODO: add tests!
   # IDEA: consider using new instance of model and validating on it directly
 
   Result = Struct.new(:success, :trade)
@@ -49,7 +48,6 @@ class Portfolios::CreateTradeForm
   end
 
   def success?
-    # TODO: check for trade creation errors
     # NOTE: in this case, stock find/create errors are not expected
     @success
   end

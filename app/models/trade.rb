@@ -21,11 +21,12 @@ class Trade < ApplicationRecord
 
   # TODO: add validations (quantity, trade_type, stock)
 
-  after_save :update_stock_price
+  after_create :update_stock_price
 
   private
 
-  # This only runs when a new trade is created
+  # IDEA: this logic is probably better suited to live on the form object
+  # Create a new stock price on any new trade
   def update_stock_price
     stock.stock_prices.create(time: Time.current, price: price)
   end

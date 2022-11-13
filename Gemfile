@@ -24,13 +24,24 @@ group :development, :test do
   gem 'debug', platforms: %i[mri mingw x64_mingw]
   # TODO: add versions
   gem 'factory_bot_rails', '~> 6.2'
+  gem 'guard', require: false
+  gem 'guard-bundler', require: false
+  gem 'guard-rspec', require: false
+  gem 'guard-rubocop', require: false
   gem 'pry'
+  gem 'pry-byebug'
   gem 'pry-doc'
   gem 'pry-rails', '~> 0.3.9'
   gem 'rspec-rails'
 end
 
+group :test do
+  gem 'database_cleaner-active_record', '~> 2.0'
+  gem 'shoulda-matchers'
+end
+
 group :development do
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
+  gem 'better_errors'
 end

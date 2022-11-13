@@ -4,7 +4,7 @@
 # files because it helps me speed up iterating on different data structures as
 # the project comes together. As soon as the project goes to production / any
 # non-ephemeral environment, then I would always create new migration files for
-# each table in order to:
+# each database change in order to:
 # - avoid damaging the migrations process
 # - avoid damaging live data
 # - avoid annoying my teammates :D
@@ -23,7 +23,10 @@ class CreateInitialTables < ActiveRecord::Migration[7.0]
     add_index :stocks, :symbol, unique: true
 
     create_table :stock_prices do |t|
-      t.datetime :time, comment: 'The time that the price was set on the market'
+      t.datetime :time, comment: 'The time that the price was set on the market',
+                        null: false, default: lambda {
+                                                'CURRENT_TIMESTAMP'
+                                              }
       t.monetize :price, null: false
       t.timestamps
     end
@@ -33,14 +36,12 @@ class CreateInitialTables < ActiveRecord::Migration[7.0]
 
     create_table :trades do |t|
       t.enum :trade_type, enum_type: 'trade_types', null: false
-      # TODO: remove any rounding happening on this col
-      # TODO: try upgrading postgres adapter to latest if possible
       t.integer :quantity, null: false
       t.virtual :signed_quantity, type: :integer,
                                   as: "CASE WHEN trade_type = '#{Trade::SELL}'::trade_types THEN -quantity ELSE quantity END",
                                   stored: true,
                                   comment: 'Shows the quantity impact on stock holdings'
-      t.datetime :time, null: false
+      t.datetime :time, null: false, default: -> { 'CURRENT_TIMESTAMP' }
       t.monetize :price, null: false
       t.timestamps
     end
