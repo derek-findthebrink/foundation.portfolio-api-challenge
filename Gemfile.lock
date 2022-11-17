@@ -71,6 +71,8 @@ GEM
       coderay (>= 1.0.0)
       erubi (>= 1.0.0)
       rack (>= 0.9.0)
+    binding_of_caller (1.0.0)
+      debug_inspector (>= 0.0.1)
     bootsnap (1.13.0)
       msgpack (~> 1.2)
     builder (3.2.4)
@@ -85,6 +87,7 @@ GEM
     debug (1.6.3)
       irb (>= 1.3.6)
       reline (>= 0.3.1)
+    debug_inspector (1.1.0)
     diff-lcs (1.5.0)
     erubi (1.11.0)
     factory_bot (6.2.1)
@@ -274,6 +277,7 @@ PLATFORMS
 
 DEPENDENCIES
   better_errors
+  binding_of_caller (~> 1.0)
   bootsnap
   database_cleaner-active_record (~> 2.0)
   debug
