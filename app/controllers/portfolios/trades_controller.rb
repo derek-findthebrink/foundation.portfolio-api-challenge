@@ -24,9 +24,9 @@ class Portfolios::TradesController < ApplicationController
 
   def destroy
     portfolio.trades.destroy(trade_id)
-    render json: { success: true, data: { trade: { id: id } } }
+    render json: { success: true, data: { trade: { id: trade_id } } }
   rescue ActiveRecord::RecordNotFound
-    render_failure("Could not find trade with ID: #{id}")
+    render_failure("Could not find trade with ID: #{trade_id}")
   end
 
   private

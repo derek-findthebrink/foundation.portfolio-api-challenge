@@ -23,14 +23,9 @@ RSpec.describe 'Portfolios::Trades', type: :request do
     it 'returns http success' do
       expect(response).to have_http_status(:success)
     end
-
-    # NOTE: additional tests
-    # - when the stock doesn't exist yet, it should be created
-    # - when the stock exists, a new stock should not be created
   end
 
   describe 'PUT /portfolio/trades/:id' do
-    # TODO: clean this up, haha
     let(:new_symbol) { 'noodle' }
     let(:stock) { Stock.create!(symbol: 'thnc') }
     let(:original_trade_attributes) do
@@ -45,7 +40,6 @@ RSpec.describe 'Portfolios::Trades', type: :request do
     let(:params) do
       {
         trade: {
-          id: trade.id,
           symbol: new_symbol
         }
       }
@@ -65,8 +59,17 @@ RSpec.describe 'Portfolios::Trades', type: :request do
     end
   end
 
-  # NOTE: required tests
-  # - DELETE /portfolio/trades/:id
-  #   - it should delete the record
-  #   - when the record does not exist, it should send an error
+  describe 'DELETE /portfolio/trades/:id' do
+    let(:symbol) { 'my_symbol' }
+    let(:stock) { create(:stock, symbol: symbol) }
+    let!(:trade) { portfolio.trades.create!(stock: stock, quantity: 100, price: 10, trade_type: :buy) }
+
+    before do
+      delete "/portfolio/trades/#{trade.id}", headers: headers
+    end
+
+    it 'deletes the trade' do
+      expect(portfolio.trades.find_by_id(trade.id)).to be_nil
+    end
+  end
 end
