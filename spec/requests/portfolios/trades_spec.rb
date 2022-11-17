@@ -63,20 +63,6 @@ RSpec.describe 'Portfolios::Trades', type: :request do
     it 'modifies the trade as expected' do
       expect(trade.reload.stock.symbol).to eq(new_symbol)
     end
-
-    context 'when ID is not passed' do
-      let(:params) do
-        {
-          trade: {
-            symbol: new_symbol
-          }
-        }
-      end
-
-      it 'returns http bad_content' do
-        expect(response).to have_http_status(:bad_request)
-      end
-    end
   end
 
   # NOTE: required tests

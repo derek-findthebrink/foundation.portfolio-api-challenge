@@ -26,6 +26,11 @@ The available routes are:
 - PUT /portfolio/trades/:id
 - DEL /portfolio/trades/:id
 
+Every request should be sent with the request header
+```
+ACCEPT=application/json
+```
+
 The routes that contain `:id` in the path need that spot to be filled by the ID of the
 trade. The trade ID can be found on the route `GET /portfolio` in the trades section.
 
@@ -112,12 +117,6 @@ Using the database for these operations does a couple of things, with caveats:
 
 I like offloading operations to the database, but it definitely needs to be approached with caution
 
-**Some things aren't working quite right...**
-
-There are some bugs in there! Definitely check out **the bugs section below**, haha. I'm
-looking for solutions to 'em as I'm polishing the code and implementing missing tests,
-but it's likely that they will stay in there unless y'all want me to take a closer look.
-
 ## ERD
 
 ![image](https://user-images.githubusercontent.com/10052669/201326022-a45f86ce-d5d9-4546-9ff8-9d61319cb450.png)
@@ -182,24 +181,7 @@ The server will be available at: http://localhost:3000
 
 ## Bugs!
 
-**unrealized_gain_or_loss after a SELL is executed (GET /portfolio)**
-
-The unrealized_gain_or_loss behaves a bit strangely during SELL orders. It has
-to do with how I originally implemented the average cost function. I have a fix
-in mind, I'll try to get it done before you review. This can result in the
-unrealized gain/loss being off after sales, in particular it can result in a net
-loss when in fact holding would be a gain.
-
-I'm debating whether or not to fix this. If there's something straight-forward I can think of I'll
-do it, but it's likely that this will remain in there as it is.
-
-**body and URL path require the same ID in order for `PUT /portfolio/trades/:id` to work**
-
-In order for trade updating to work, both the body and the URL path require the same ID
-to be present. This is silly, I'm going to try to patch this one before review so that only the URL requires
-the ID.
-
-(in progress...)
+No bugs are currently tracked. Add one here if you find one! :D
 
 ## Testing
 
@@ -238,6 +220,11 @@ in the root of the repo.
 For reference, the production URL is: https://foundation--portfolio-api-chal.herokuapp.com
 
 ### Usage Notes
+
+**Required Headers**
+
+Each endpoint accepts 'application/json'. In order for the API to operate, you'll
+need to send the ACCEPT=application/json header with each request
 
 **Changing params**
 
