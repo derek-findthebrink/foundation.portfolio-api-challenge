@@ -29,11 +29,11 @@ RSpec.describe HoldingsReport do
       subject { instance.result.holdings.first }
 
       it 'has the correct quantity' do
-        expect(subject[:signed_quantity]).to eq(20)
+        expect(subject.quantity).to eq(20)
       end
 
       it 'has the expected average price' do
-        expect(subject[:average_price_cents]).to eq(2000)
+        expect(subject.average_unit_purchase_cost_cents).to eq(2000)
       end
     end
 
@@ -69,11 +69,11 @@ RSpec.describe HoldingsReport do
       end
 
       it 'has the expected quantity' do
-        expect(holding[:signed_quantity]).to eq(10)
+        expect(holding.quantity).to eq(10)
       end
 
       it 'has the expected average price' do
-        expect(holding[:average_price_cents]).to eq(2000)
+        expect(holding.average_unit_purchase_cost_cents).to eq(2000)
       end
     end
   end

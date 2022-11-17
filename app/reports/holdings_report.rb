@@ -1,7 +1,9 @@
 # Extracts, calculates and produces the required data to show portfolio holdings
 class HoldingsReport
   # TODO: Add tests!
-  Result = Struct.new(:success, :holdings)
+  Result = Struct.new(:success, :holdings, :symbols)
+
+  Holding = Struct.new(:symbol, :quantity, :average_unit_purchase_cost_cents)
 
   def initialize(portfolio)
     @portfolio = portfolio
@@ -11,7 +13,7 @@ class HoldingsReport
   end
 
   def result
-    Result.new(true, data)
+    Result.new(true, data, symbols)
   end
 
   private
@@ -24,13 +26,7 @@ class HoldingsReport
     symbols.each do |symbol|
       quantity = quantities[symbol]
       purchase_value = purchase_values[symbol]
-      average_price_cents = purchase_value[:cost_cents] / purchase_value[:quantity]
-
-      final << {
-        symbol: symbol,
-        signed_quantity: quantity,
-        average_price_cents: average_price_cents
-      }
+      final << Holding.new(symbol, quantity, purchase_value)
     end
 
     final
@@ -49,13 +45,16 @@ class HoldingsReport
 
   def fetch_purchase_values
     trades = portfolio.trades.joins(:stock)
-                      .includes(:stock)
                       .where({ trade_type: Trade::BUY, stocks: { symbol: symbols } })
 
-    trades.each_with_object({}) do |trade, acc|
+    intermediate = trades.each_with_object({}) do |trade, acc|
       acc[trade.stock.symbol] ||= { cost_cents: 0, quantity: 0 }
       acc[trade.stock.symbol][:cost_cents] += trade.price_cents * trade.signed_quantity
       acc[trade.stock.symbol][:quantity] += trade.signed_quantity
+    end
+
+    intermediate.transform_values do |value|
+      value[:cost_cents] / value[:quantity]
     end
   end
 end

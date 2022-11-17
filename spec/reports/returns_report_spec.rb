@@ -21,8 +21,32 @@ RSpec.describe ReturnsReport do
       expect(subject.success).to eq(true)
     end
 
-    it do
-      # TODO: complete tests
+    describe 'returns' do
+      subject { instance.result.returns }
+
+      it 'has the expected number of returns' do
+        expect(subject.size).to eq(3)
+      end
+
+      describe 'return entry' do
+        subject { instance.result.returns.first }
+
+        it 'has the expected total_purchase_cost_cents' do
+          expect(subject.total_purchase_cost_cents).to eq(40_000)
+        end
+
+        it 'has the expected current_market_price_cents' do
+          expect(subject.current_market_price_cents).to eq(2500)
+        end
+
+        it 'has the expected current_holding_value_cents' do
+          expect(subject.current_holding_value_cents).to eq(50_000)
+        end
+
+        it 'has the expected net_return_cents' do
+          expect(subject.net_return_cents).to eq(10_000)
+        end
+      end
     end
   end
 end
